@@ -1,0 +1,117 @@
+
+.lecturer-content-area {
+	flex: 1;
+	padding: 25px 25px 100px;
+	background: #f8f9fa;
+	margin-left: 260px;
+	overflow-y: auto;
+	height: 100vh;
+	box-sizing: border-box;
+}
+
+.lecturer-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 30px;
+	padding-bottom: 20px;
+	border-bottom: 1px solid #e9ecef;
+}
+
+.header-left h1 {
+	margin: 0;
+	color: var(--primary-blue);
+	font-size: 2.5rem;
+	font-weight: 700;
+}
+
+.header-left p {
+	margin: 5px 0 0 0;
+	color: #6c757d;
+	font-size: 1.1rem;
+}
+
+.lecturer-table-card {
+	background: #fff;
+	border-radius: 18px;
+	box-shadow: 0 8px 32px rgba(0,102,204,0.10), 0 1.5px 6px rgba(0,166,81,0.08);
+	padding: 32px 24px;
+	margin-top: 32px;
+}
+
+.table-title {
+	font-size: 1.2rem;
+	font-weight: 700;
+	margin-bottom: 18px;
+}
+
+.lecturer-table {
+	width: 100%;
+	border-collapse: collapse;
+	font-size: 1rem;
+}
+
+.lecturer-table th, .lecturer-table td {
+	padding: 12px 10px;
+	text-align: left;
+}
+
+.lecturer-table thead th {
+	background: #f7fafc;
+	font-weight: 600;
+	color: #333;
+	border-bottom: 2px solid #e9ecef;
+}
+
+.lecturer-table tbody tr {
+	border-bottom: 1px solid #f1f1f1;
+}
+
+.lecturer-table tbody tr:last-child {
+	border-bottom: none;
+}
+
+.status {
+	padding: 4px 14px;
+	border-radius: 12px;
+	font-size: 0.95em;
+	font-weight: 500;
+	display: inline-block;
+}
+.status.active {
+	background: #e6fff3;
+	color: #1bc98e;
+}
+.status.inactive {
+	background: #fff0f0;
+	color: #ff5b5b;
+}
+
+.edit-btn {
+	background: #eaf6ff;
+	color: #007bff;
+	border: none;
+	border-radius: 6px;
+	padding: 6px 16px;
+	margin-right: 6px;
+	cursor: pointer;
+	font-weight: 500;
+	transition: background 0.2s;
+}
+.edit-btn:hover {
+	background: #d0eaff;
+}
+
+.delete-btn {
+	background: #fff0f0;
+	color: #ff5b5b;
+	border: none;
+	border-radius: 6px;
+	padding: 6px 16px;
+	cursor: pointer;
+	font-weight: 500;
+	transition: background 0.2s;
+}
+.delete-btn:hover {
+	background: #ffd6d6;
+}

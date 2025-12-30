@@ -1,0 +1,214 @@
+<div style="max-width: 900px; margin: 40px auto;">
+  <div style="font-size: 2rem; font-weight: bold; margin-bottom: 24px; display: flex; align-items: center; gap: 12px;">
+    <span style="background: #e0f7fa; border-radius: 50%; padding: 10px;">
+      <i class="fa fa-code" style="color: #00796b;"></i>
+    </span>
+    Developers
+  </div>
+  <div class="dev-grid">
+    <!-- Developer Card -->
+    <div class="dev-card">
+      <div class="dev-img">
+        <img src="assets/Sun Pavmeng.jpg" alt="Sun Pavmeng" style="width: 100%; height: 100%; object-fit: cover; cursor: pointer;" onclick="showImageModal(this)">
+      </div>
+      <div>
+        <strong>Name:</strong> Sun Pavmeng<br>
+        <strong>Contact: (+855):</strong> 40 <br>
+        <strong>Position:</strong> Project Manager, Data Scientist
+      </div>
+    </div>
+    <div class="dev-card">
+      <div class="dev-img">
+        <img src="assets/Bunly Kunnka.jpg" alt="Bunly Kunnka" style="width: 100%; height: 100%; object-fit: cover; cursor: pointer;" onclick="showImageModal(this)">
+      </div>
+      <div>
+        <strong>Name:</strong> Bunly Kunnka<br>
+        <strong>Contact: (+855)</strong> 40 <br>
+        <strong>Position:</strong> Quality Assurance Engineer
+      </div>
+    </div>
+    <div class="dev-card">
+      <div class="dev-img">
+        <img src="assets/PF_Image12.jpg" alt="" style="width: 100%; height: 100%; object-fit: cover; cursor: pointer;" onclick="showImageModal(this)">
+      </div>
+      <div>
+        <strong>Name:</strong> Choy Long<br>
+        <strong>Contact: (+855)</strong> 088 8441 447 <br>
+        <strong>Position:</strong> Full Stack Developer, Offensive Security, DevOps Engineer
+      </div>
+    </div>
+    <div class="dev-card">
+      <div class="dev-img">
+        <img src="assets/Khan Pichnareay.jpg" alt="Khan Pichnareay" style="width: 100%; height: 100%; object-fit: cover; cursor: pointer;" onclick="showImageModal(this)">
+      </div>
+      <div>
+        <strong>Name:</strong> Khan Pichnareay<br>
+        <strong>Contact: (+855):</strong> 40 <br>
+        <strong>Position:</strong> Developer, Frontend Engineer
+      </div>
+    </div>
+    <div class="dev-card">
+      <div class="dev-img">
+        <img src="assets/Nhem Phannaravuth.jpg" alt="Nhem Phannaravuth" style="width: 100%; height: 100%; object-fit: cover; cursor: pointer;" onclick="showImageModal(this)">
+      </div>
+      <div>
+        <strong>Name:</strong> Nhem Phannaravuth<br>
+        <strong>Contact: (+855):</strong> 40 <br>
+        <strong>Position:</strong> Graphic Designer, UX/UI Designer
+      </div>
+    </div>
+    <div class="dev-card">
+      <div class="dev-img">
+        <img src="assets/Choub Sreynet.jpg" alt="Choub Sreynet" style="width: 100%; height: 100%; object-fit: cover; cursor: pointer;" onclick="showImageModal(this)">
+      </div>
+      <div>
+        <strong>Name:</strong> Choub Sreynet<br>
+        <strong>Contact: (+855):</strong> 40 <br>
+        <strong>Position:</strong> System Trainee
+      </div>
+    </div>
+    <div class="dev-card">
+      <div class="dev-img">
+        <img src="assets/Se Somrach.jpg" alt="Se Somrach" style="width: 100%; height: 100%; object-fit: cover; cursor: pointer;" onclick="showImageModal(this)">
+      </div>
+      <div>
+        <strong>Name:</strong> Se Somrach<br>
+        <strong>Contact: (+855):</strong> 40 <br>
+        <strong>Position:</strong> Developer, Backend Engineer
+      </div>
+    </div>
+    <div class="dev-card">
+      <div class="dev-img">
+        <img src="assets/Say Sophannathay.jpg" alt="Say Sophannathay" style="width: 100%; height: 100%; object-fit: cover; cursor: pointer;" onclick="showImageModal(this)">
+      </div>
+      <div>
+        <strong>Name:</strong> Say Sophannathay<br>
+        <strong>Contact: (+855):</strong> 40 <br>
+        <strong>Position:</strong> Developer, Frontend Engineer
+      </div>
+    </div>
+    <!-- Add empty cards to fill 16 grid slots if needed -->
+    <div class="dev-card empty"></div>
+    <div class="dev-card empty"></div>
+    <div class="dev-card empty"></div>
+    <div class="dev-card empty"></div>
+    <div class="dev-card empty"></div>
+    <div class="dev-card empty"></div>
+    <div class="dev-card empty"></div>
+    <div class="dev-card empty"></div>
+  </div>
+</div>
+<style>
+.dev-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 32px;
+}
+.dev-card {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px #e0f2f1;
+  padding: 18px 24px;
+  min-width: 210px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  font-weight: bold;
+  transition: box-shadow 0.2s;
+  min-height: 220px;
+}
+.dev-card:hover {
+  box-shadow: 0 4px 16px #b2dfdb;
+  background: #e0f7fa;
+}
+.dev-img {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  border: 2px solid #00796b;
+  background: #e0f7fa;
+  margin-bottom: 8px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.dev-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.dev-card.empty {
+  background: transparent;
+  box-shadow: none;
+  pointer-events: none;
+}
+</style>
+<!-- Modal HTML -->
+<div class="image-modal" id="imageModal" onclick="hideImageModal(event)">
+  <div class="image-modal-content" onclick="event.stopPropagation()">
+    <button class="image-modal-close" onclick="hideImageModal(event)">&times;</button>
+    <img id="modalImg" src="" alt="Enlarged Image">
+  </div>
+</div>
+<style>
+.image-modal {
+  display: none;
+  position: fixed;
+  z-index: 9999;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0,0,0,0.7);
+  align-items: center;
+  justify-content: center;
+}
+.image-modal.active {
+  display: flex !important;
+}
+.image-modal-content {
+  max-width: 80vw;
+  max-height: 80vh;
+  border-radius: 12px;
+  box-shadow: 0 4px 32px #0008;
+  background: #fff;
+  padding: 12px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.image-modal-content img {
+  max-width: 70vw;
+  max-height: 70vh;
+  border-radius: 8px;
+}
+.image-modal-close {
+  position: absolute;
+  top: 8px;
+  right: 16px;
+  font-size: 2rem;
+  color: #00796b;
+  background: none;
+  border: none;
+  cursor: pointer;
+  z-index: 2;
+}
+</style>
+
+<!-- Place script at the very end to ensure functions are available for inline onclick -->
+<script>
+window.showImageModal = function(imgElem) {
+  var modal = document.getElementById('imageModal');
+  var modalImg = document.getElementById('modalImg');
+  modalImg.src = imgElem.src;
+  modal.classList.add('active');
+}
+window.hideImageModal = function(event) {
+  event.stopPropagation();
+  var modal = document.getElementById('imageModal');
+  modal.classList.remove('active');
+}
+</script>

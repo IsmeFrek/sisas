@@ -1,0 +1,206 @@
+.profile-img {
+	width: 32px;
+	height: 32px;
+	border-radius: 50%;
+	object-fit: cover;
+	margin-right: 10px;
+	border: 2px solid #fff;
+	background: #eee;
+}
+.profile-btn {
+	background: var(--primary-blue);
+	color: #fff;
+	border: none;
+	padding: 8px 16px;
+	border-radius: 4px;
+	font-size: 0.95rem;
+	margin-right: 10px;
+	cursor: pointer;
+	transition: background 0.3s;
+}
+.profile-btn:hover {
+	background: var(--primary-green);
+}
+
+/* Header Styles (adapted from footer) */
+.main-header {
+	background: linear-gradient(135deg, var(--secondary-dark) 0%, var(--primary-blue) 100%);
+	color: var(--text-light);
+	padding: 15px 0;
+	position: fixed;
+	top: 0;
+	left: 260px;
+	right: 0;
+	z-index: 90;
+	width: calc(100vw - 260px);
+	box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+	border-bottom: none;
+}
+
+.header-content {
+	max-width: 1200px;
+	margin: 0 auto;
+	padding: 0 30px;
+}
+
+.header-layout {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	flex-wrap: wrap;
+	gap: 20px;
+}
+
+.header-left {
+	flex: 1;
+	min-width: 250px;
+}
+
+.header-logo-section {
+	display: flex;
+	align-items: center;
+	gap: 15px;
+}
+
+.header-logo {
+	width: 50px;
+	height: 50px;
+	object-fit: contain;
+}
+
+.header-brand-text h4 {
+	margin: 0;
+	font-size: 1.1rem;
+	font-weight: 600;
+	color: var(--text-light);
+}
+
+.header-brand-text p {
+	margin: 0;
+	font-size: 0.8rem;
+	color: var(--secondary-light);
+	font-style: italic;
+}
+
+.header-center {
+	flex: 1;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	min-width: 200px;
+}
+
+.header-title h2 {
+	margin: 0;
+	font-size: 2rem;
+	font-weight: 700;
+	color: var(--text-light);
+	letter-spacing: 2px;
+}
+
+.user-info {
+	display: flex;
+	align-items: center;
+	font-size: 1rem;
+	color: var(--text-light);
+	margin-right: 16px;
+}
+.user-icon {
+	display: inline-block;
+	width: 22px;
+	height: 22px;
+	background: url('data:image/svg+xml;utf8,<svg fill="%23fff" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M12 14c-4.418 0-8 1.79-8 4v2h16v-2c0-2.21-3.582-4-8-4z"/></svg>') no-repeat center center;
+	background-size: contain;
+	margin-right: 8px;
+}
+
+.header-links {
+	display: flex;
+	align-items: center;
+	gap: 15px;
+	flex-wrap: wrap;
+	justify-content: center;
+}
+
+.header-links a {
+	color: var(--secondary-light);
+	text-decoration: none;
+	font-size: 0.9rem;
+	transition: color 0.3s ease;
+	white-space: nowrap;
+}
+
+.header-links a:hover {
+	color: var(--primary-green);
+}
+
+.separator {
+	color: rgba(255, 255, 255, 0.4);
+	font-size: 0.9rem;
+}
+
+.header-right {
+	flex: 1;
+	display: flex;
+	justify-content: flex-end;
+	min-width: 200px;
+}
+
+.logout-btn {
+	background: var(--primary-green);
+	color: #fff;
+	border: none;
+	padding: 8px 18px;
+	border-radius: 4px;
+	font-size: 0.95rem;
+	cursor: pointer;
+	transition: background 0.3s;
+	margin-left: 8px;
+}
+.logout-btn:hover {
+	background: var(--primary-blue);
+}
+
+@media (max-width: 768px) {
+	.header-layout {
+		flex-direction: column;
+		text-align: center;
+		gap: 25px;
+	}
+	.header-left,
+	.header-center,
+	.header-right {
+		flex: none;
+		width: 100%;
+		justify-content: center;
+	}
+	.header-logo-section {
+		justify-content: center;
+	}
+}
+
+@media (max-width: 480px) {
+	.header-content {
+		padding: 0 20px;
+	}
+	.main-header {
+		padding: 20px 0;
+	}
+	.header-links {
+		flex-direction: column;
+		gap: 10px;
+	}
+	.separator {
+		display: none;
+	}
+	.header-logo {
+		width: 40px;
+		height: 40px;
+	}
+	.header-brand-text h4 {
+		font-size: 1rem;
+	}
+	.header-brand-text p {
+		font-size: 0.75rem;
+	}
+}

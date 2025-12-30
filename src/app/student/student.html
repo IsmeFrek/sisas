@@ -1,0 +1,275 @@
+<div class="student-content-area">
+	<header class="student-header">
+		<div class="header-left">
+			<h1>Student</h1>
+		</div>
+	</header>
+	<div class="student-table-card">
+		<h2 class="table-title">All Students</h2>
+		<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+			<input type="text" [(ngModel)]="searchTerm" (input)="filterStudents()" placeholder="Search by name or major" style="width: 250px; padding: 6px;" />
+			<button (click)="addStudent()" style="padding: 6px 16px;">Add Student</button>
+			<button (click)="clearSearch()" style="padding: 6px 16px;">Clear</button>
+		</div>
+		<table class="student-table">
+			<thead>
+				<tr>
+					<th>#</th>
+					<th>Name</th>
+					<th>Gender</th>
+					<th>Class</th>
+					<th>Major</th>
+					<th>Status</th>
+					<th>Actions</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr *ngFor="let student of filteredStudents; let i = index">
+					<td>{{ i + 1 }}</td>
+					<td>{{ student.name }}</td>
+					<td>{{ student.gender }}</td>
+					<td>{{ student.class }}</td>
+					<td>{{ student.major }}</td>
+					<td>{{ student.status }}</td>
+					<td>
+						<button class="edit-btn" (click)="editStudent(student)">Edit</button>
+						<button class="delete-btn" (click)="deleteStudent(student._id)">Delete</button>
+					</td>
+				</tr>
+				<tr *ngIf="filteredStudents.length === 0">
+					<td colspan="7" style="text-align:center;">No students found.</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+	<!-- Modal for Add/Edit Student -->
+	<div *ngIf="showModal" class="modal-overlay">
+		<div class="modal-content">
+			<h3>{{ isEditMode ? 'Edit Student' : 'Add Student' }}</h3>
+			<form (ngSubmit)="saveStudent()">
+				<div class="modal-grid">
+					<div class="modal-col">
+						<input type="text" [(ngModel)]="currentStudent.name" name="name" placeholder="Name" required />
+						<input type="text" [(ngModel)]="currentStudent.gender" name="gender" placeholder="Gender" required />
+						<input type="number" [(ngModel)]="currentStudent.age" name="age" placeholder="Age" required />
+						<input type="text" [(ngModel)]="currentStudent.class" name="class" placeholder="Class" required />
+						<input type="text" [(ngModel)]="currentStudent.major" name="major" placeholder="Major" required />
+						<input type="text" [(ngModel)]="currentStudent.status" name="status" placeholder="Status" required />
+					</div>
+					<div class="modal-col">
+						<input type="email" [(ngModel)]="currentStudent.gmail" name="gmail" placeholder="Gmail" required />
+						<input type="text" [(ngModel)]="currentStudent.phone" name="phone" placeholder="Phone" required />
+						<input type="date" [(ngModel)]="currentStudent.dob" name="dob" placeholder="Date of Birth" required />
+						<input type="text" [(ngModel)]="currentStudent.placeofbirth" name="placeofbirth" placeholder="Place of Birth" required />
+						<input type="text" [(ngModel)]="currentStudent.currentAddress" name="currentAddress" placeholder="Current Address" required />
+						<input type="text" [(ngModel)]="currentStudent.grade" name="grade" placeholder="Grade" required />
+					</div>
+				</div>
+				<div *ngIf="errorMessage" style="color: #d32f2f; margin-bottom: 1rem; font-weight: 600;">
+					{{ errorMessage }}
+				</div>
+				<div class="modal-actions">
+					<button type="submit">{{ isEditMode ? 'Update' : 'Add' }}</button>
+					<button type="button" (click)="closeModal()">Cancel</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+<!-- Add modern modal CSS -->
+<style>
+:root {
+	--setec-primary: #009e6e;
+	--setec-secondary: #ffffff;
+	--setec-primary-light: #4fd6b3;
+	--setec-primary-dark: #007a54;
+}
+
+/* Style for the search and action bar */
+.student-table-card > div[style*="display: flex"] {
+	gap: 1.5rem;
+}
+
+.search-input,
+.student-table-card input[type="text"] {
+	padding: 10px 16px;
+	border-radius: 8px;
+	border: 1.5px solid var(--setec-primary-light);
+	font-size: 1.05rem;
+	background: var(--setec-secondary);
+	transition: border-color 0.2s, box-shadow 0.2s;
+	box-shadow: 0 1px 4px rgba(0,158,110,0.06);
+	color: var(--setec-primary-dark);
+}
+.student-table-card input[type="text"]:focus {
+	border-color: var(--setec-primary);
+	outline: none;
+	background: #e3f2ed;
+	box-shadow: 0 2px 8px rgba(0,158,110,0.10);
+}
+.student-table-card input[type="text"]:hover {
+	border-color: var(--setec-primary-dark);
+}
+
+/* Style for action buttons */
+.student-table-card button {
+	background: linear-gradient(90deg, var(--setec-primary) 0%, var(--setec-primary-light) 100%);
+	color: var(--setec-secondary);
+	font-weight: 600;
+	border: none;
+	border-radius: 8px;
+	padding: 10px 28px;
+	font-size: 1.05rem;
+	cursor: pointer;
+	transition: background 0.2s, box-shadow 0.2s;
+	box-shadow: 0 2px 8px rgba(0,158,110,0.10);
+}
+.student-table-card button:hover {
+	background: linear-gradient(90deg, var(--setec-primary-dark) 0%, var(--setec-primary-light) 100%);
+	box-shadow: 0 4px 16px rgba(0,158,110,0.18);
+}
+.student-table-card button:last-child {
+	background: #e3f2ed;
+	color: var(--setec-primary);
+	font-weight: 600;
+	border: 1.5px solid var(--setec-primary-light);
+}
+.student-table-card button:last-child:hover {
+	background: #b2e9d7;
+	color: var(--setec-primary-dark);
+}
+
+/* Modal styles */
+.modal-overlay {
+	position: fixed;
+	top: 0; left: 0; right: 0; bottom: 0;
+	background: rgba(79,140,255,0.18);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	z-index: 1000;
+	animation: fadeIn 0.3s;
+}
+@keyframes fadeIn {
+	from { opacity: 0; }
+	to { opacity: 1; }
+}
+.modal-content {
+	background: linear-gradient(135deg, #f7fbff 0%, #e3f2fd 100%);
+	padding: 2.5rem 2.5rem 1.5rem 2.5rem;
+	border-radius: 20px;
+	box-shadow: 0 12px 40px rgba(79,140,255,0.22);
+	width: 430px;
+	animation: slideDown 0.3s;
+}
+@keyframes slideDown {
+	from { transform: translateY(-30px); opacity: 0; }
+	to { transform: translateY(0); opacity: 1; }
+}
+.modal-content h3 {
+	color: #357ae8;
+	margin-bottom: 1.5rem;
+	font-size: 1.7rem;
+	font-weight: 800;
+	letter-spacing: 1.5px;
+	text-align: left;
+}
+.modal-content form {
+	display: block;
+}
+.modal-grid {
+	display: flex;
+	gap: 2rem;
+}
+.modal-col {
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+	width: 50%;
+}
+.modal-grid::before {
+	content: "";
+	display: block;
+	width: 2px;
+	background: linear-gradient(180deg, #4f8cff 0%, #6fd6ff 100%);
+	margin: 0 0.5rem;
+	border-radius: 2px;
+}
+.modal-content input[type="text"],
+.modal-content input[type="number"],
+.modal-content input[type="email"],
+.modal-content input[type="date"] {
+	width: 100%;
+	padding: 12px 16px;
+	border-radius: 10px;
+	border: 1.5px solid #cfd8dc;
+	font-size: 1.05rem;
+	transition: border-color 0.2s, box-shadow 0.2s;
+	background: #f7fbff;
+	box-shadow: 0 1px 4px rgba(79,140,255,0.06);
+}
+.modal-content input:focus {
+	border-color: #4f8cff;
+	outline: none;
+	background: #e3f2fd;
+	box-shadow: 0 2px 8px rgba(79,140,255,0.10);
+}
+.modal-content input:hover {
+	border-color: #6fd6ff;
+}
+.modal-actions {
+	display: flex;
+	justify-content: flex-end;
+	gap: 1rem;
+	margin-top: 2rem;
+}
+.modal-content button[type="submit"] {
+	background: linear-gradient(90deg, #4f8cff 0%, #6fd6ff 100%);
+	color: #fff;
+	font-weight: 700;
+	border: none;
+	border-radius: 8px;
+	padding: 10px 28px;
+	font-size: 1.1rem;
+	cursor: pointer;
+	transition: background 0.2s, box-shadow 0.2s;
+	box-shadow: 0 2px 8px rgba(79,140,255,0.10);
+}
+.modal-content button[type="submit"]:hover {
+	background: linear-gradient(90deg, #357ae8 0%, #4fd6ff 100%);
+	box-shadow: 0 4px 16px rgba(79,140,255,0.18);
+}
+.modal-content button[type="button"] {
+	background: #e3f2fd;
+	color: #4f8cff;
+	font-weight: 600;
+	border: none;
+	border-radius: 8px;
+	padding: 10px 28px;
+	font-size: 1.1rem;
+	cursor: pointer;
+	transition: background 0.2s, box-shadow 0.2s;
+	box-shadow: 0 2px 8px rgba(79,140,255,0.06);
+}
+.modal-content button[type="button"]:hover {
+	background: #bbdefb;
+	box-shadow: 0 4px 16px rgba(79,140,255,0.10);
+}
+@media (max-width: 700px) {
+	.modal-content {
+		width: 98vw;
+		padding: 1rem;
+	}
+	.modal-grid {
+		flex-direction: column;
+		gap: 0.5rem;
+	}
+	.modal-col {
+		width: 100%;
+	}
+	.modal-grid::before {
+		display: none;
+	}
+}
+</style>

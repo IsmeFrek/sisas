@@ -1,0 +1,64 @@
+html, body {
+  overflow-x: hidden;
+  width: 100vw;
+  height: 100vh;
+}
+/* SETEC Color Variables */
+:root {
+  --primary-green: #00a651;
+  --primary-blue: #0066cc;
+  --secondary-dark: #1a365d;
+  --secondary-light: #e8f4fd;
+  --accent-orange: #ff6b35;
+  --neutral-gray: #4a5568;
+  --text-light: #ffffff;
+  --text-dark: #2d3748;
+  --background-light: #f7fafc;
+  --border-color: #e2e8f0;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  line-height: 1.6;
+  color: var(--text-dark);
+  background-color: var(--background-light);
+  overflow-x: hidden;
+}
+
+.app-shell {
+  display: flex;
+  /* height: 100vh; removed to allow .app-content to scroll */
+  /* overflow: hidden; removed to allow .app-content to scroll */
+}
+
+
+.app-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  height: 84vh;
+  overflow: auto;
+  background: var(--background-light);
+  box-sizing: border-box;
+  margin-top: 95px; /* Adjust to header height */
+  padding-bottom: 80px; /* Leave space for footer */
+}
+
+.main-content-area {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 32px 24px 24px 24px;
+  min-height: calc(100vh - 60px);
+}
+
+/* Ensure footer sticks to bottom */
+.app-content router-outlet + app-footer {
+  margin-top: auto;
+}

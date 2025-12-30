@@ -1,0 +1,78 @@
+<nav class="modern-sidebar">
+  <div class="sidebar-brand">
+    <div class="brand-icon"><img src="assets/setec%20Logo.png" alt="SETEC Logo"></div>
+    <div class="brand-text">
+      <h3>SETEC Institute</h3>
+      <span>Code: 023213784</span>
+    </div>
+  </div>
+  
+  <ul class="nav-menu">
+    <li class="nav-item">
+      <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" class="nav-link">
+        <i class="nav-icon dashboard-icon"></i>
+        <span>Dashboard</span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a routerLink="/uers" routerLinkActive="active" class="nav-link">
+        <i class="nav-icon users-icon"></i>
+        <span>Users</span>
+      </a>
+    </li>
+    <li class="nav-item has-children" [class.open]="isSetupDropdownOpen">
+      <a (click)="toggleSetupDropdown()" class="nav-link dropdown-toggle">
+        <i class="nav-icon setup-icon"></i>
+        <span>Setup</span>
+        <i class="dropdown-arrow" [class.rotated]="isSetupDropdownOpen"></i>
+      </a>
+      <ul class="nav-children" [class.show]="isSetupDropdownOpen">
+        <li class="nav-child-item">
+          <a routerLink="/setup/schedule" routerLinkActive="active" class="nav-child-link">
+            <i class="nav-icon schedule-icon"></i>
+            <span>Schedule</span>
+          </a>
+        </li>
+        <li class="nav-child-item">
+          <a routerLink="/setup/student" routerLinkActive="active" class="nav-child-link">
+            <i class="nav-icon student-icon"></i>
+            <span>Student</span>
+          </a>
+        </li>
+        <li class="nav-child-item">
+          <a routerLink="/setup/class" routerLinkActive="active" class="nav-child-link">
+            <i class="nav-icon class-icon"></i>
+            <span>Class</span>
+          </a>
+        </li>
+          <li class="nav-child-item">
+            <a routerLink="/setup/lecturer" routerLinkActive="active" class="nav-child-link">
+              <i class="nav-icon lecturer-icon"></i>
+              <span>Lecturer</span>
+            </a>
+          </li>
+      </ul>
+    </li>
+    <li class="nav-item has-children" [class.open]="isSettingDropdownOpen">
+      <a (click)="toggleSettingDropdown()" class="nav-link dropdown-toggle">
+        <i class="nav-icon setting-icon"></i>
+        <span>Setting</span>
+        <i class="dropdown-arrow" [class.rotated]="isSettingDropdownOpen"></i>
+      </a>
+      <ul class="nav-children" [class.show]="isSettingDropdownOpen">
+        <li class="nav-child-item">
+          <a routerLink="/setting/user-log" routerLinkActive="active" class="nav-child-link">
+            <i class="nav-icon user-log-icon"></i>
+            <span>User Log</span>
+          </a>
+        </li>
+      </ul>
+    </li>
+    <li class="nav-item">
+      <a routerLink="/developer" routerLinkActive="active" class="nav-link">
+        <i class="nav-icon users-icon"></i>
+        <span>Developer</span>
+      </a>
+    </li>
+  </ul>
+</nav>
