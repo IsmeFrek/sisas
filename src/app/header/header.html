@@ -11,10 +11,10 @@
       </div>
       <div class="header-right">
         <span class="user-info">
-          <img class="profile-img" src="assets/PF_Image12.jpg" alt="Profile" />
-          Frek
+          <img class="profile-img" [src]="profileImage" alt="Profile" />
+          {{ userName || 'User' }}
         </span>
-        <button class="logout-btn">Logout</button>
+        <button class="logout-btn" (click)="logout()">Logout</button>
       </div>
     </div>
   </div>

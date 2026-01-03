@@ -5,6 +5,7 @@ const UserSchema = new mongoose.Schema({
   password: { type: String, required: true },
   email: { type: String, required: true, unique: true },
   role: { type: String, enum: ['admin', 'user'], default: 'user' },
+  profileImage: { type: String, default: '' } // Store relative path, e.g., 'upload/imagename.jpg'
 }, { timestamps: true });
 
 const User = mongoose.model('User', UserSchema);

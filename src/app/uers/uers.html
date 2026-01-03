@@ -35,7 +35,17 @@
           <tr *ngFor="let user of filteredUsers; let i = index">
             <td>{{i + 1}}</td>
             <td class="user-name">
-              <div class="user-avatar">{{(user.username || 'U').charAt(0).toUpperCase()}}</div>
+              <div class="user-avatar">
+                <ng-container *ngIf="user.profileImage; else showInitial">
+                  <img 
+                    [src]="user.profileImage.startsWith('http') ? user.profileImage : (user.profileImage.startsWith('data:') ? user.profileImage : 'http://localhost:5000/' + user.profileImage)" 
+                    alt="Profile" 
+                    class="avatar-img" />
+                </ng-container>
+                <ng-template #showInitial>
+                  <span class="avatar-initial">{{ (user.username || 'U').charAt(0).toUpperCase() }}</span>
+                </ng-template>
+              </div>
               {{user.username}}
             </td>
             <td>{{user.email}}</td>
@@ -73,7 +83,7 @@
       <button class="close-btn" (click)="closeModal()">×</button>
     </div>
     
-    <form class="user-form" (ngSubmit)="saveUser()">
+    <form class="user-form" enctype="multipart/form-data" #userForm="ngForm" (ngSubmit)="saveUser()">
       <div class="form-group">
         <label>Username *</label>
         <input 
@@ -108,6 +118,13 @@
       </div>
       
       <div class="form-group">
+        <label>Profile Image</label>
+        <input type="file" (change)="onFileSelected($event)" accept="image/*" class="form-input">
+        <div *ngIf="imagePreview" class="image-preview">
+          <img [src]="imagePreview" alt="Preview" class="preview-img" />
+        </div>
+      </div>
+      <div class="form-group">
         <label>Role *</label>
         <select [(ngModel)]="currentUser.role" name="role" required class="form-select">
           <option value="user">User</option>
@@ -130,3 +147,29 @@
     </form>
   </div>
 </div>
+
+<style>
+.avatar-img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  display: inline-block;
+  vertical-align: middle;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+.avatar-initial {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #6c63ff 60%, #5a55ae 100%);
+  color: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  font-weight: bold;
+  vertical-align: middle;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+</style>

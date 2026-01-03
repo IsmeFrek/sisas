@@ -1,0 +1,19 @@
+<div class="login-container">
+	<div class="login-box">
+		<img src="assets/setec%20Logo.png" alt="Setec Logo" class="login-logo">
+		<h2>Login to Setec</h2>
+		<form (submit)="onSubmit($event)">
+			<div class="form-group">
+				<label for="username">Username</label>
+				<input type="text" id="username" name="username" [(ngModel)]="username" required>
+			</div>
+			<div class="form-group">
+				<label for="password">Password</label>
+				<input type="password" id="password" name="password" [(ngModel)]="password" required>
+			</div>
+			<button type="submit" class="login-btn">Login</button>
+		</form>
+		<div *ngIf="error" style="color: #d32f2f; margin-top: 1rem;">{{ error }}</div>
+		<div *ngIf="success" style="color: #388e3c; margin-top: 1rem;">{{ success }}</div>
+	</div>
+</div>

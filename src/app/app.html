@@ -1,8 +1,13 @@
-<div class="app-shell">
-  <app-header></app-header>
-  <app-navigate-bar></app-navigate-bar>
-  <div class="app-content">
-    <router-outlet></router-outlet>
-    <app-footer></app-footer>
+<ng-container *ngIf="isAuthenticated; else showLogin">
+  <div class="app-shell">
+    <app-header></app-header>
+    <app-navigate-bar></app-navigate-bar>
+    <div class="app-content">
+      <router-outlet></router-outlet>
+      <app-footer></app-footer>
+    </div>
   </div>
-</div>
+</ng-container>
+<ng-template #showLogin>
+  <app-login></app-login>
+</ng-template>

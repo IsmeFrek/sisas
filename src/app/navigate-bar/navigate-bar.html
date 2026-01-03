@@ -3,7 +3,8 @@
     <div class="brand-icon"><img src="assets/setec%20Logo.png" alt="SETEC Logo"></div>
     <div class="brand-text">
       <h3>SETEC Institute</h3>
-      <span>Code: 023213784</span>
+      <span *ngIf="email; else noEmail">Gmail: {{ email }}</span>
+      <ng-template #noEmail><span>Gmail: Not logged in</span></ng-template>
     </div>
   </div>
   
@@ -45,12 +46,18 @@
             <span>Class</span>
           </a>
         </li>
-          <li class="nav-child-item">
-            <a routerLink="/setup/lecturer" routerLinkActive="active" class="nav-child-link">
-              <i class="nav-icon lecturer-icon"></i>
-              <span>Lecturer</span>
-            </a>
-          </li>
+        <li class="nav-child-item">
+          <a routerLink="/setup/lecturer" routerLinkActive="active" class="nav-child-link">
+            <i class="nav-icon lecturer-icon"></i>
+            <span>Lecturer</span>
+          </a>
+        </li>
+        <li class="nav-child-item">
+          <a routerLink="/setup/major" routerLinkActive="active" class="nav-child-link">
+            <i class="nav-icon major-icon"></i>
+            <span>Major</span>
+          </a>
+        </li>
       </ul>
     </li>
     <li class="nav-item has-children" [class.open]="isSettingDropdownOpen">
@@ -64,6 +71,12 @@
           <a routerLink="/setting/user-log" routerLinkActive="active" class="nav-child-link">
             <i class="nav-icon user-log-icon"></i>
             <span>User Log</span>
+          </a>
+        </li>
+        <li>
+          <a routerLink="/setting/roll-user" routerLinkActive="active" class="nav-child-link">
+            <i class="nav-icon roll-user-icon"></i>
+            <span>Roll User</span>
           </a>
         </li>
       </ul>

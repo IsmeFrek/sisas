@@ -1,0 +1,19 @@
+<div class="roles-container">
+	<h2>User Roles</h2>
+	<form class="role-form">
+		<label>Username:</label>
+		<input type="text" [(ngModel)]="username" name="username" required />
+		<label>Role:</label>
+		<input type="text" [(ngModel)]="role" name="role" required placeholder="Enter role (e.g. Admin, User, Student, ...)" />
+		<button type="submit">Create Role</button>
+	</form>
+	<div *ngIf="message" style="color:green; margin-top:1rem;">{{ message }}</div>
+	<div *ngIf="error" style="color:red; margin-top:1rem;">{{ error }}</div>
+	<div class="roles-list">
+		<div *ngIf="loading">Loading roles...</div>
+		<div *ngFor="let r of roles" class="role-card">
+			<h3>{{ r.name || r.role }}</h3>
+			<p>{{ r.description || (r.username + ' - ' + r.role) }}</p>
+		</div>
+	</div>
+</div>

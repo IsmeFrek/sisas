@@ -1,3 +1,12 @@
+// Get total student count
+exports.getStudentCount = async (req, res) => {
+  try {
+    const count = await Student.countDocuments();
+    res.json({ count });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
 const Student = require('../models/Student');
 
 exports.createStudent = async (req, res) => {

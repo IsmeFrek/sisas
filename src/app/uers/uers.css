@@ -181,6 +181,29 @@
   color: white;
   font-weight: bold;
   font-size: 0.9rem;
+  overflow: hidden;
+}
+
+.avatar-img {
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+  border-radius: 50%;
+  display: block;
+}
+
+.image-preview {
+  margin-top: 10px;
+  text-align: left;
+}
+
+.preview-img {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 1px solid #e9ecef;
+}
 }
 
 .role-badge {

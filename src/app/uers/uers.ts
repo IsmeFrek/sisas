@@ -10,6 +10,7 @@ interface User {
   password?: string;
   role: string;
   status?: string;
+  profileImage?: string;
 }
 
 @Component({
@@ -25,13 +26,15 @@ export class Uers implements OnInit {
   showModal: boolean = false;
   isEditMode: boolean = false;
   currentUser: User = { _id: '', username: '', email: '', password: '', role: 'user', status: 'active' };
-  
+  selectedFile: File | null = null;
+  imagePreview: string | null = null;
+
   constructor(private http: HttpClient) {}
-  
+
   ngOnInit() {
     this.loadUsers();
   }
-  
+
   loadUsers() {
     this.http.get<User[]>('http://localhost:5000/api/users')
       .subscribe({
@@ -51,7 +54,7 @@ export class Uers implements OnInit {
         }
       });
   }
-  
+
   filterUsers() {
     if (!this.searchTerm || this.searchTerm.trim() === '') {
       this.filteredUsers = this.users;
@@ -62,24 +65,28 @@ export class Uers implements OnInit {
       );
     }
   }
-  
+
   clearSearch() {
     this.searchTerm = '';
     this.filteredUsers = this.users;
   }
-  
+
   addUser() {
     this.isEditMode = false;
     this.currentUser = { _id: '', username: '', email: '', password: '', role: 'user', status: 'active' };
+    this.selectedFile = null;
+    this.imagePreview = null;
     this.showModal = true;
   }
-  
+
   editUser(user: User) {
     this.isEditMode = true;
-    this.currentUser = { ...user, password: '' }; // Create a copy without password
+    this.currentUser = { ...user, password: '' };
+    this.selectedFile = null;
+    this.imagePreview = user.profileImage ? 'http://localhost:5000/' + user.profileImage : null;
     this.showModal = true;
   }
-  
+
   deleteUser(userId: string) {
     if (confirm('Are you sure you want to delete this user?')) {
       this.http.delete(`http://localhost:5000/api/users/${userId}`)
@@ -94,17 +101,27 @@ export class Uers implements OnInit {
         });
     }
   }
-  
+
   closeModal() {
     this.showModal = false;
     this.currentUser = { _id: '', username: '', email: '', password: '', role: 'user', status: 'active' };
+    this.selectedFile = null;
+    this.imagePreview = null;
   }
-  
+
   saveUser() {
+    const formData = new FormData();
+    Object.entries(this.currentUser).forEach(([key, value]) => {
+      if (key === 'password' && this.isEditMode && !value) return; // Don't send password if editing and not changed
+      if (value !== undefined && value !== null) {
+        formData.append(key, value as string);
+      }
+    });
+    if (this.selectedFile) {
+      formData.append('profileImage', this.selectedFile);
+    }
     if (this.isEditMode) {
-      // Update existing user - don't send password in update
-      const { _id, password, ...userUpdateData } = this.currentUser;
-      this.http.put<User>(`http://localhost:5000/api/users/${_id}`, userUpdateData)
+      this.http.put<User>(`http://localhost:5000/api/users/${this.currentUser._id}`, formData)
         .subscribe({
           next: (updatedUser) => {
             const index = this.users.findIndex(u => u._id === updatedUser._id);
@@ -128,9 +145,7 @@ export class Uers implements OnInit {
           }
         });
     } else {
-      // Create new user - send all data including password
-      const { _id, ...userDataWithoutId } = this.currentUser;
-      this.http.post<User>('http://localhost:5000/api/users', userDataWithoutId)
+      this.http.post<User>('http://localhost:5000/api/users', formData)
         .subscribe({
           next: (createdUser) => {
             this.users.push(createdUser);
@@ -143,11 +158,30 @@ export class Uers implements OnInit {
             console.error('Error details:', error.error);
             // Add to local array with generated ID even if API fails
             const newUser = { ...this.currentUser, _id: Date.now().toString() };
+            // If imagePreview exists, use it as a temporary profileImage (base64)
+            if (this.imagePreview) {
+              newUser.profileImage = this.imagePreview;
+            }
             this.users.push(newUser);
             this.filterUsers();
             this.closeModal();
           }
         });
+    }
+  }
+
+  onFileSelected(event: Event) {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files.length > 0) {
+      this.selectedFile = input.files[0];
+      const reader = new FileReader();
+      reader.onload = (e: any) => {
+        this.imagePreview = e.target.result;
+      };
+      reader.readAsDataURL(this.selectedFile);
+    } else {
+      this.selectedFile = null;
+      this.imagePreview = null;
     }
   }
 }
