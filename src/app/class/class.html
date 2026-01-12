@@ -1,51 +1,162 @@
+
 <div class="class-content-area">
 	<header class="class-header">
 		<div class="header-left">
-			<h1>Class Management</h1>
-			<p>Manage class information and records here.</p>
+			<h1>Class</h1>
+		</div>
+		<div class="header-actions">
+			<div class="search-container">
+				<input type="text" placeholder="Search classes..." class="search-input">
+				<button class="search-btn" title="Search">🔍</button>
+			</div>
+			<button class="add-btn" (click)="showAddForm = true">+ Add Class</button>
 		</div>
 	</header>
+
+	<!-- Classes Table -->
 	<div class="class-table-card">
 		<h2 class="table-title">All Classes</h2>
 		<table class="class-table">
 			<thead>
 				<tr>
-					<th>#</th>
-					<th>Class Name</th>
-					<th>Major</th>
-					<th>Teacher</th>
-					<th>Room</th>
-					<th>Status</th>
+					<!-- <th>ID</th> -->
+					<th>Name</th>
+					<th>Description</th>
+					<th>Promotion</th>
+					<th>Year</th>
 					<th>Actions</th>
 				</tr>
 			</thead>
 			<tbody>
-				<tr>
-					<td>1</td>
-					<td>WD III</td>
-					<td>Web Development</td>
-					<td>Dr. Smith</td>
-					<td>A101</td>
-					<td><span class="status active">Active</span></td>
+				<tr *ngFor="let class of classes">
+					<!-- <td>{{ class._id }}</td> -->
+					<td>{{ class.name }}</td>
+					<td>{{ class.description }}</td>
+					<td>{{ class.promotion }}</td>
+					<td>{{ class.year }}</td>
 					<td>
-						<button class="edit-btn">Edit</button>
-						<button class="delete-btn">Delete</button>
+						<button (click)="editClass(class)">Edit</button>
+						<button (click)="deleteClass(class._id!)" [disabled]="!class._id">Delete</button>
 					</td>
 				</tr>
-				<tr>
-					<td>2</td>
-					<td>WD II</td>
-					<td>Database</td>
-					<td>Prof. Johnson</td>
-					<td>B205</td>
-					<td><span class="status inactive">Inactive</span></td>
-					<td>
-						<button class="edit-btn">Edit</button>
-						<button class="delete-btn">Delete</button>
-					</td>
-				</tr>
-				<!-- More class rows here -->
 			</tbody>
 		</table>
 	</div>
 </div>
+
+<!-- Add Class Modal -->
+<div class="modal-overlay" *ngIf="showAddForm" (click)="closeModal()">
+	<div class="modal-content" (click)="$event.stopPropagation()">
+		<div class="modal-header">
+			<h2>Add New Class</h2>
+			<button class="close-btn" (click)="closeModal()">×</button>
+		</div>
+		
+		<form class="class-form" (ngSubmit)="addClass()">
+			<div class="form-group">
+				<label>Class Name *</label>
+				<input 
+					type="text" 
+					[(ngModel)]="newClass.name" 
+					name="name"
+					required 
+					class="form-input"
+					placeholder="Enter class name">
+			</div>
+			
+			<div class="form-group">
+				<label>Description</label>
+				<input 
+					type="text" 
+					[(ngModel)]="newClass.description" 
+					name="description"
+					class="form-input"
+					placeholder="Enter description">
+			</div>
+			
+			<div class="form-group">
+				<label>Promotion</label>
+				<input 
+					type="text" 
+					[(ngModel)]="newClass.promotion" 
+					name="promotion"
+					class="form-input"
+					placeholder="Enter promotion">
+			</div>
+			
+			<div class="form-group">
+				<label>Year</label>
+				<input 
+					type="number" 
+					[(ngModel)]="newClass.year" 
+					name="year"
+					class="form-input"
+					placeholder="Enter year">
+			</div>
+			
+			<div class="form-actions">
+				<button type="button" class="cancel-btn" (click)="closeModal()">Cancel</button>
+				<button type="submit" class="save-btn">Create Class</button>
+			</div>
+		</form>
+	</div>
+</div>
+
+<!-- Edit Class Modal -->
+<div class="modal-overlay" *ngIf="editingClass" (click)="cancelEdit()">
+	<div class="modal-content" (click)="$event.stopPropagation()">
+		<div class="modal-header">
+			<h2>Edit Class</h2>
+			<button class="close-btn" (click)="cancelEdit()">×</button>
+		</div>
+		
+		<form class="class-form" (ngSubmit)="updateClass()">
+			<div class="form-group">
+				<label>Class Name *</label>
+				<input 
+					type="text" 
+					[(ngModel)]="editingClass.name" 
+					name="name"
+					required 
+					class="form-input"
+					placeholder="Enter class name">
+			</div>
+			
+			<div class="form-group">
+				<label>Description</label>
+				<input 
+					type="text" 
+					[(ngModel)]="editingClass.description" 
+					name="description"
+					class="form-input"
+					placeholder="Enter description">
+			</div>
+			
+			<div class="form-group">
+				<label>Promotion</label>
+				<input 
+					type="text" 
+					[(ngModel)]="editingClass.promotion" 
+					name="promotion"
+					class="form-input"
+					placeholder="Enter promotion">
+			</div>
+			
+			<div class="form-group">
+				<label>Year</label>
+				<input 
+					type="number" 
+					[(ngModel)]="editingClass.year" 
+					name="year"
+					class="form-input"
+					placeholder="Enter year">
+			</div>
+			
+			<div class="form-actions">
+				<button type="button" class="cancel-btn" (click)="cancelEdit()">Cancel</button>
+				<button type="submit" class="save-btn">Update Class</button>
+			</div>
+		</form>
+	</div>
+</div>
+

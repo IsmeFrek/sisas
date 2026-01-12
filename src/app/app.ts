@@ -1,4 +1,5 @@
 import { Component, signal } from '@angular/core';
+import { AutoLogoutService } from './auto-logout.service';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import { NavigateBar } from "./navigate-bar/navigate-bar";
@@ -14,6 +15,7 @@ import { Login } from "./login/login";
 })
 export class App {
   protected readonly title = signal('Final-Project');
+  constructor(private _autoLogout: AutoLogoutService) {}
   get isAuthenticated() {
     return !!localStorage.getItem('auth_token');
   }

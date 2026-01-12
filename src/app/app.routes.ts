@@ -34,7 +34,7 @@ export const routes: Routes = [
 			{ path: 'student', component: Student },
 			{ path: 'class', component: Class },
 			{ path: 'lecturer', component: Lecturer },
-			{path:	'major', component: Major},
+			{ path:	'major', component: Major },
 			{ path: '', redirectTo: 'schedule', pathMatch: 'full' }
 		]
 	},

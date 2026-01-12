@@ -8,8 +8,12 @@
 
 # Node
 /node_modules
+api/node_modules
 npm-debug.log
 yarn-error.log
+
+# Uploads
+api/upload
 
 # IDEs and editors
 .idea/

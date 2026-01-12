@@ -114,7 +114,9 @@
           name="password"
           required 
           class="form-input"
-          placeholder="Enter password">
+          placeholder="Enter password (min 8 chars, 1 uppercase, 1 number, 1 special char)">
+        <div *ngIf="passwordError" class="error-message">{{ passwordError }}</div>
+        <small class="password-hint">Must be at least 8 characters with uppercase, number, and special character</small>
       </div>
       
       <div class="form-group">

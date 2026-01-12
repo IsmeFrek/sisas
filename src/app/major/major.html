@@ -1,1 +1,114 @@
-<p>major works!</p>
+<div class="major-content-area">
+	<header class="major-header">
+		<div class="header-left">
+			<h1>Major Management</h1>
+		</div>
+		<div class="header-actions">
+			<div class="search-container">
+				<input type="text" placeholder="Search majors..." class="search-input">
+				<button class="search-btn" title="Search">🔍</button>
+			</div>
+			<button class="add-btn" (click)="showAddForm = true">+ Add Major</button>
+		</div>
+	</header>
+
+	<!-- Majors Table -->
+	<div class="major-table-card">
+		<h2 class="table-title">All Majors</h2>
+		<table class="major-table">
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Description</th>
+					<th>Actions</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr *ngFor="let major of majors">
+					<td>{{ major.name }}</td>
+					<td>{{ major.description }}</td>
+					<td>
+						<button (click)="editMajor(major)">Edit</button>
+						<button (click)="deleteMajor(major._id!)" [disabled]="!major._id">Delete</button>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
+
+<!-- Add Major Modal -->
+<div class="modal-overlay" *ngIf="showAddForm" (click)="closeModal()">
+	<div class="modal-content" (click)="$event.stopPropagation()">
+		<div class="modal-header">
+			<h2>Add New Major</h2>
+			<button class="close-btn" (click)="closeModal()">×</button>
+		</div>
+		
+		<form class="major-form" (ngSubmit)="addMajor()">
+			<div class="form-group">
+				<label>Major Name *</label>
+				<input 
+					type="text" 
+					[(ngModel)]="newMajor.name" 
+					name="name"
+					required 
+					class="form-input"
+					placeholder="Enter major name">
+			</div>
+			
+			<div class="form-group">
+				<label>Description</label>
+				<input 
+					type="text" 
+					[(ngModel)]="newMajor.description" 
+					name="description"
+					class="form-input"
+					placeholder="Enter description">
+			</div>
+			
+			<div class="form-actions">
+				<button type="button" class="cancel-btn" (click)="closeModal()">Cancel</button>
+				<button type="submit" class="save-btn">Create Major</button>
+			</div>
+		</form>
+	</div>
+</div>
+
+<!-- Edit Major Modal -->
+<div class="modal-overlay" *ngIf="editingMajor" (click)="cancelEdit()">
+	<div class="modal-content" (click)="$event.stopPropagation()">
+		<div class="modal-header">
+			<h2>Edit Major</h2>
+			<button class="close-btn" (click)="cancelEdit()">×</button>
+		</div>
+		
+		<form class="major-form" (ngSubmit)="updateMajor()">
+			<div class="form-group">
+				<label>Major Name *</label>
+				<input 
+					type="text" 
+					[(ngModel)]="editingMajor.name" 
+					name="name"
+					required 
+					class="form-input"
+					placeholder="Enter major name">
+			</div>
+			
+			<div class="form-group">
+				<label>Description</label>
+				<input 
+					type="text" 
+					[(ngModel)]="editingMajor.description" 
+					name="description"
+					class="form-input"
+					placeholder="Enter description">
+			</div>
+			
+			<div class="form-actions">
+				<button type="button" class="cancel-btn" (click)="cancelEdit()">Cancel</button>
+				<button type="submit" class="save-btn">Update Major</button>
+			</div>
+		</form>
+	</div>
+</div>

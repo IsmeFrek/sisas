@@ -28,6 +28,7 @@ export class Uers implements OnInit {
   currentUser: User = { _id: '', username: '', email: '', password: '', role: 'user', status: 'active' };
   selectedFile: File | null = null;
   imagePreview: string | null = null;
+  passwordError: string = '';
 
   constructor(private http: HttpClient) {}
 
@@ -76,6 +77,7 @@ export class Uers implements OnInit {
     this.currentUser = { _id: '', username: '', email: '', password: '', role: 'user', status: 'active' };
     this.selectedFile = null;
     this.imagePreview = null;
+    this.passwordError = '';
     this.showModal = true;
   }
 
@@ -107,11 +109,46 @@ export class Uers implements OnInit {
     this.currentUser = { _id: '', username: '', email: '', password: '', role: 'user', status: 'active' };
     this.selectedFile = null;
     this.imagePreview = null;
+    this.passwordError = '';
+  }
+
+  validatePassword(password: string): boolean {
+    this.passwordError = '';
+    
+    if (password.length < 8) {
+      this.passwordError = 'Password must be at least 8 characters long';
+      return false;
+    }
+    
+    if (!/[A-Z]/.test(password)) {
+      this.passwordError = 'Password must contain at least one uppercase letter';
+      return false;
+    }
+    
+    if (!/[0-9]/.test(password)) {
+      this.passwordError = 'Password must contain at least one number';
+      return false;
+    }
+    
+    if (!/[!@#$%^&*(),.?":{}|<>]/.test(password)) {
+      this.passwordError = 'Password must contain at least one special character (!@#$%^&*(),.?":{}|<>)';
+      return false;
+    }
+    
+    return true;
   }
 
   saveUser() {
+    // Validate password for new users or when password is being changed
+    if (!this.isEditMode || this.currentUser.password) {
+      if (!this.currentUser.password || !this.validatePassword(this.currentUser.password)) {
+        return;
+      }
+    }
+    
     const formData = new FormData();
     Object.entries(this.currentUser).forEach(([key, value]) => {
+      if (key === '_id') return; // Don't send _id field
       if (key === 'password' && this.isEditMode && !value) return; // Don't send password if editing and not changed
       if (value !== undefined && value !== null) {
         formData.append(key, value as string);

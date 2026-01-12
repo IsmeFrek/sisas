@@ -7,7 +7,7 @@ const {
     deleteStudent,
     getStudentCount
 }= require('../controllers/studentController');
-const { Component } = require('@angular/core');
+// const { Component } = require('@angular/core');
 const router = express.Router();
 
 router.post('/students', createStudent);
