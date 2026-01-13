@@ -1,4 +1,6 @@
+
 const User = require('../models/User');
+const bcrypt = require('bcryptjs');
 
 // POST /api/login
 exports.login = async (req, res) => {
@@ -17,8 +19,9 @@ exports.login = async (req, res) => {
 		if (!user) {
 			return res.status(401).json({ message: 'Invalid username or password.' });
 		}
-		// Check password (assuming plain text for now, use hashing in production)
-		if (user.password !== password) {
+		// Check password using bcrypt
+		const isMatch = await bcrypt.compare(password, user.password);
+		if (!isMatch) {
 			return res.status(401).json({ message: 'Invalid username or password.' });
 		}
 				// Log user login with IP and city
